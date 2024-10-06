@@ -15,17 +15,3 @@ export const useDogRandomFact = () => {
 		return data.data[0].attributes.body
 	})
 }
-
-export const useDogBreeds = () => {
-	return useQuery("dogBreeds", async () => {
-		const response = await fetch(`${API_URL}/breeds`)
-
-		if (!response.ok) {
-			throw new Error("Network response was not ok")
-		}
-
-		const data = await response.json()
-
-		return data.message
-	})
-}

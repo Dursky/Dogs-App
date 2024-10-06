@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {useDispatch} from "react-redux"
 import {Dog} from "../types"
-import {removeDog, updateDog} from "../store/dogSlice" // Załóżmy, że te akcje są zdefiniowane w dogSlice
+import {removeDog, updateDog} from "../store/dogSlice"
 
 interface DogTileProps {
 	dog: Dog
