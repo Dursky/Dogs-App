@@ -3,12 +3,16 @@ import {useDispatch} from "react-redux"
 import {useNavigate} from "react-router-dom"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import {login} from "../store/authSlice"
-import {LoginSchema} from "../utils/validation"
+import {LoginSchema} from "../validation"
 
 const Login: React.FC = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
+	const handleLogin = async (values: {username: string; password: string}) => {
+		dispatch(login(values.username))
+		navigate("/dashboard")
+	}
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
 			<div className="max-w-md w-full space-y-8">
@@ -20,10 +24,7 @@ const Login: React.FC = () => {
 				<Formik
 					initialValues={{username: "", password: ""}}
 					validationSchema={LoginSchema}
-					onSubmit={(values) => {
-						dispatch(login(values.username))
-						navigate("/dashboard")
-					}}>
+					onSubmit={handleLogin}>
 					<Form className="mt-8 space-y-6">
 						<div className="rounded-md shadow-sm -space-y-px">
 							<div>

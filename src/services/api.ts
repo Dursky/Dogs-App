@@ -1,6 +1,6 @@
 import {useQuery} from "react-query"
 
-const API_URL = "https://dog-api.kinduff.com/api"
+const API_URL = "https://dogapi.dog/docs/api-v2"
 
 export const useRandomDog = () => {
 	return useQuery("randomDog", async () => {
@@ -16,7 +16,7 @@ export const useRandomDog = () => {
 
 export const useDogBreeds = () => {
 	return useQuery("dogBreeds", async () => {
-		const response = await fetch(`${API_URL}/breeds/list/all`)
+		const response = await fetch(`${API_URL}/breeds`)
 
 		if (!response.ok) {
 			throw new Error("Network response was not ok")
