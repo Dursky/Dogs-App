@@ -2,12 +2,12 @@ import React from "react"
 import {useDispatch} from "react-redux"
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import {addDog} from "../store/dogSlice"
-import {useRandomDog} from "../services/api"
+import {useDogRandomFact} from "../services/api"
 import {DogSchema} from "../validation"
 
 const DogForm: React.FC = () => {
 	const dispatch = useDispatch()
-	//const {refetch: fetchRandomDog} = useRandomDog()
+	const {refetch: fetchRandomDogFact} = useDogRandomFact()
 
 	return (
 		<div className="mt-8">
@@ -16,12 +16,13 @@ const DogForm: React.FC = () => {
 				initialValues={{breed: ""}}
 				validationSchema={DogSchema}
 				onSubmit={async (values, {resetForm}) => {
-					//	const {data: dogImage} = await fetchRandomDog()
+					const {data: fact} = await fetchRandomDogFact()
+
 					dispatch(
 						addDog({
 							id: Date.now().toString(),
 							breed: values.breed,
-							imageUrl: "xxx",
+							fact,
 						}),
 					)
 					resetForm()

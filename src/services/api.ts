@@ -1,16 +1,18 @@
 import {useQuery} from "react-query"
 
-const API_URL = "https://dogapi.dog/docs/api-v2"
+const API_URL = "https://dogapi.dog/api/v2"
 
-export const useRandomDog = () => {
-	return useQuery("randomDog", async () => {
-		const response = await fetch(`${API_URL}/breeds/image/random`)
+export const useDogRandomFact = () => {
+	return useQuery("dogFacts", async () => {
+		const response = await fetch(`${API_URL}/facts`)
 
 		if (!response.ok) {
 			throw new Error("Network response was not ok")
 		}
 
-		return response.json()
+		const data = await response.json()
+
+		return data.data[0].attributes.body
 	})
 }
 

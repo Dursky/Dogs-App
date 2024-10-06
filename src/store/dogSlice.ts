@@ -1,10 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
-
-interface Dog {
-	id: string
-	breed: string
-	imageUrl: string
-}
+import {Dog} from "../types"
 
 interface DogState {
 	dogs: Dog[]
@@ -19,20 +14,19 @@ const dogSlice = createSlice({
 	initialState,
 	reducers: {
 		addDog: (state, action: PayloadAction<Dog>) => {
-			console.log(action.payload)
 			state.dogs.push(action.payload)
 		},
 		removeDog: (state, action: PayloadAction<string>) => {
 			state.dogs = state.dogs.filter((dog) => dog.id !== action.payload)
 		},
-		updateDog: (state, action: PayloadAction<Dog>) => {
-			const index = state.dogs.findIndex((dog) => dog.id === action.payload.id)
-			if (index !== -1) {
-				state.dogs[index] = action.payload
-			}
+		removeAllDogs: (state) => {
+			state.dogs = []
 		},
+		updateDog: (state, action: PayloadAction<Dog>) =>
+			void (state.dogs[state.dogs.findIndex((dog) => dog.id === action.payload.id)] =
+				action.payload),
 	},
 })
 
-export const {addDog, removeDog, updateDog} = dogSlice.actions
+export const {addDog, removeDog, updateDog, removeAllDogs} = dogSlice.actions
 export default dogSlice.reducer
